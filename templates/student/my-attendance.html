@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block head %}
+<style>
+  .head_title::after {
+    content: "";
+    width: 90%;
+    position: absolute;
+    height: 4px;
+    background: #858585;
+    left: 62px;
+    top: 225px;
+  }
+</style>
+{% endblock head %}{% block content %}
+<div class="head_title" style="font-size: 32px; margin: 5rem 4rem; text-shadow: 1px 1px 1px #084298">> 수강중인 강의</div>
+<div class="container">
+  <table class="table table-light table-striped" style="font-size: 21px; text-align: center">
+    <thead style="font-weight: bold">
+      <tr>
+        <th scope="col">강의명</th>
+        <th scope="col">시간</th>
+        <th scope="col">출석부</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for lecture in mylectureArr %}
+      <tr>
+        <td scope="row">{{lecture.course.title}}</th>
+        <td>{{lecture.course.period}}</td>
+        <td style="color: #009ef0;
+        font-size: 18px;
+        font-weight: bold;cursor:pointer;"><button onclick="goDetail('{{lecture.course.id}}');" value="{{lecture.course.id}}" style="border: 0;
+        color: #0079ff;
+        font-weight: bold;background: none;">출석확인</button></td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div style="margin: 4rem 7% 0 7%; text-align: end">
+  <button
+    onclick="window.location.href='../../student/enrolment'"
+    style="font-size: 25px; background-color: #ffa137; border-color: #b7b7b7; border-radius: 6px; padding: 6px"
+  >
+    수강신청
+  </button>
+</div>
+<script>
+  function goDetail(id) {
+    window.location.href = `../confirm-attendance/${id}/1`;
+  }
+</script>
+{% endblock content %}

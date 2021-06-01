@@ -1,0 +1,135 @@
+{% extends 'base.html' %}{% block head %}
+<style>
+  .head_title::after {
+    content: "";
+    width: 90%;
+    position: absolute;
+    height: 4px;
+    background: #858585;
+    left: 62px;
+    top: 225px;
+  }
+</style>
+{% endblock head %} {% block content %}
+<div class="head_title" style="font-size: 32px; margin: 5rem 4rem; text-shadow: 1px 1px 1px #084298">> 
+  <span>{{title}} 출석부</span>
+    
+  <select id="select_week" style="border: 2px solid;
+  border-radius: 9px;
+  margin-left: 1rem;">
+    {% if week == 1 %}
+      <option value="1" selected>1주차</option>
+      <option value="2">2주차</option>
+      <option value="3">3주차</option>
+      <option value="4">4주차</option>
+    {% endif %}
+    {% if week == 2 %}
+      <option value="1">1주차</option>
+      <option value="2" selected>2주차</option>
+      <option value="3">3주차</option>
+      <option value="4">4주차</option>
+    {% endif %}
+    {% if week == 3 %}
+      <option value="1">1주차</option>
+      <option value="2">2주차</option>
+      <option value="3" selected>3주차</option>
+      <option value="4">4주차</option>
+    {% endif %}
+    {% if week == 4 %}
+      <option value="1">1주차</option>
+      <option value="2">2주차</option>
+      <option value="3">3주차</option>
+      <option value="4" selected>4주차</option>
+    {% endif %}
+  </select>
+</div>
+
+<div class="container">
+  <table class="table table-light table-striped" style="font-size: 21px; text-align: center">
+    <thead style="font-weight: bold">
+      <tr>
+        <th scope="col">사진</th>
+        <th scope="col">학번</th>
+        <th scope="col">이름</th>
+        <th scope="col">출석</th>
+        <th scope="col">결석</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- attend.pupil이 학생객체 -->
+      {% for attend in attend_obj %}
+      <tr>
+        <td scope="row">
+          <img src="{{attend.pupil.photo.url}}" alt="" width="150px" height="150px" />
+        </th>
+        <td style="vertical-align: middle;">{{attend.pupil.username}}</td>
+        <td style="vertical-align: middle;">{{attend.pupil.name}}</td>
+        {% if week == 1 %}
+          {% if attend.week1 == 'yet' %}
+          <td style="vertical-align: middle;"></td>
+          <td style="vertical-align: middle;"></td>
+          {% endif %} {% if attend.week1 == 'attend' %}
+          <td style="vertical-align: middle;">O</td>
+          <td style="vertical-align: middle;"></td>
+          {% endif %} {% if attend.week1 == 'absent' %}
+          <td style="vertical-align: middle;"></td>
+          <td style="vertical-align: middle;">O</td>
+          {% endif %}
+        {% endif %}
+        {% if week == 2 %}
+          {% if attend.week2 == 'yet' %}
+          <td style="vertical-align: middle;"></td>
+          <td style="vertical-align: middle;"></td>
+          {% endif %} {% if attend.week2 == 'attend' %}
+          <td style="vertical-align: middle;">O</td>
+          <td style="vertical-align: middle;"></td>
+          {% endif %} {% if attend.week2 == 'absent' %}
+          <td style="vertical-align: middle;"></td>
+          <td style="vertical-align: middle;">O</td>
+          {% endif %}
+        {% endif %}
+        {% if week == 3 %}
+          {% if attend.week3 == 'yet' %}
+          <td style="vertical-align: middle;"></td>
+          <td style="vertical-align: middle;"></td>
+          {% endif %} {% if attend.week3 == 'attend' %}
+          <td style="vertical-align: middle;">O</td>
+          <td style="vertical-align: middle;"></td>
+          {% endif %} {% if attend.week3 == 'absent' %}
+          <td style="vertical-align: middle;"></td>
+          <td style="vertical-align: middle;">O</td>
+          {% endif %}
+        {% endif %}
+        {% if week == 4 %}
+          {% if attend.week4 == 'yet' %}
+          <td style="vertical-align: middle;"></td>
+          <td style="vertical-align: middle;"></td>
+          {% endif %} {% if attend.week4 == 'attend' %}
+          <td style="vertical-align: middle;">O</td>
+          <td style="vertical-align: middle;"></td>
+          {% endif %} {% if attend.week4 == 'absent' %}
+          <td style="vertical-align: middle;"></td>
+          <td style="vertical-align: middle;">O</td>
+          {% endif %}
+        {% endif %}
+        
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div style="margin: 4rem 7% 0 7%; text-align: end">
+  <a href="../../manage-lecture" style="display: inline-block; color: #d27e04; font-weight: bold; margin-bottom: 1.5rem; margin-right: 1.5rem; text-align: center"
+    >이전으로</a
+  >
+  <button style="font-size: 25px; background-color: #ffdc6e; border-color: #b7b7b7; border-radius: 6px; padding: 6px; margin-right: 1rem">자동 출석</button>
+  <button style="font-size: 25px; background-color: #ffa137; border-color: #b7b7b7; border-radius: 6px; padding: 6px">수정하기</button>
+</div>
+
+<script>
+  const select_box = document.getElementById("select_week");
+  select_box.addEventListener('change',(e)=>{
+    window.location.href=`./${e.target.value}`
+  })
+</script>
+{% endblock content %}
